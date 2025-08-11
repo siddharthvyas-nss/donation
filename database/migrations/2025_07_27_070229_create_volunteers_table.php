@@ -17,6 +17,12 @@ return new class extends Migration
             $table->string('mobile')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->text('address')->nullable();
+            $table->text('skills')->nullable();
+            $table->text('interests')->nullable();
+            $table->string('availability')->nullable();
+            $table->string('emergency_contact_name')->nullable();
+            $table->string('emergency_contact_phone')->nullable();
             $table->enum('status', ['pending', 'active', 'inactive'])->default('pending');
             $table->boolean('mobile_verified')->default(false);
             $table->boolean('email_verified')->default(false);

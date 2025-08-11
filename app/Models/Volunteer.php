@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
 class Volunteer extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +18,12 @@ class Volunteer extends Authenticatable
         'mobile',
         'email',
         'password',
+        'address',
+        'skills',
+        'interests',
+        'availability',
+        'emergency_contact_name',
+        'emergency_contact_phone',
         'status',
         'mobile_verified',
         'email_verified',
@@ -46,50 +52,26 @@ class Volunteer extends Authenticatable
     ];
 
     /**
-     * Get the OTPs for the volunteer.
+     * Get the volunteer's status
      */
-    public function otps(): HasMany
+    public function getStatusTextAttribute()
     {
-        return $this->hasMany(VolunteerOtp::class);
+        return ucfirst($this->status);
     }
 
     /**
-     * Get mobile OTPs for the volunteer.
+     * Check if volunteer is active
      */
-    public function mobileOtps(): HasMany
-    {
-        return $this->hasMany(VolunteerOtp::class)->where('type', 'mobile');
-    }
-
-    /**
-     * Get email OTPs for the volunteer.
-     */
-    public function emailOtps(): HasMany
-    {
-        return $this->hasMany(VolunteerOtp::class)->where('type', 'email');
-    }
-
-    /**
-     * Check if volunteer is verified.
-     */
-    public function isVerified(): bool
-    {
-        return $this->mobile_verified && $this->email_verified;
-    }
-
-    /**
-     * Check if volunteer is active.
-     */
-    public function isActive(): bool
+    public function isActive()
     {
         return $this->status === 'active';
     }
 
     /**
-     * Update last login timestamp.
+     * Check if volunteer is verified
      */
-    public function updateLastLogin(): void
+    public function isVerified()
     {
-        $this->update(['last_login_at' => now()]);
+        return $this->mobile_verified && $this->email_verified;
     }
 }
