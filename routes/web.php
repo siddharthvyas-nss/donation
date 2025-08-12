@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return redirect()->route('volunteer.login');
@@ -18,14 +19,14 @@ Route::prefix('volunteer')->name('volunteer.')->group(function () {
     Route::get('/login/otp', [VolunteerController::class, 'showLoginOtp'])->name('login.otp');
     Route::post('/login/otp', [VolunteerController::class, 'loginOtp'])->name('login.otp.post');
     Route::post('/login/send-otp', [VolunteerController::class, 'sendLoginOtp'])->name('login.send-otp');
-    
+
     // OTP verification routes
     Route::get('/verify/mobile', [VolunteerController::class, 'showMobileVerification'])->name('verify.mobile');
     Route::post('/verify/mobile', [VolunteerController::class, 'verifyMobile'])->name('verify.mobile.post');
     Route::get('/verify/email', [VolunteerController::class, 'showEmailVerification'])->name('verify.email');
     Route::post('/verify/email', [VolunteerController::class, 'verifyEmail'])->name('verify.email.post');
     Route::post('/resend/otp', [VolunteerController::class, 'resendOtp'])->name('resend.otp');
-    
+
     // Protected routes (authentication required)
     Route::middleware('volunteer.auth')->group(function () {
         Route::get('/dashboard', [VolunteerController::class, 'dashboard'])->name('dashboard');
@@ -42,4 +43,11 @@ Route::prefix('donor')->name('donor.')->middleware('volunteer.auth')->group(func
     Route::get('/list', [DonorController::class, 'index'])->name('list');
     Route::get('/reports', [DonorController::class, 'reports'])->name('reports');
     Route::get('/trash', [DonorController::class, 'trash'])->name('trash');
+});
+
+// Admin Login Routes
+Route::prefix('admin')->group(function () {
+    Route::get('login', [App\Http\Controllers\AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login.submit');
+    Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
 });

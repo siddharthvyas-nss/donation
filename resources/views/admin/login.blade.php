@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Volunteer Login - Narayan Seva Sansthan')
+@section('title', 'Admin Login - Narayan Seva Sansthan')
 
 @section('content')
 <!--begin::Root-->
@@ -24,7 +24,7 @@
             <!--begin::Content-->
             <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
                 <!--begin::Image-->
-                <img class="theme-light-show mx-auto mw-100 w-150px w-lg-500px mb-10 mb-lg-20" src="{{ asset('assets/media/auth/login_vaulenteer.webp') }}" alt="" />
+                <img class="theme-light-show mx-auto mw-100 w-150px w-lg-500px mb-10 mb-lg-20" src="{{ asset('assets/media/auth/adminlogin.svg') }}" alt="" />
                 <!--end::Image-->
                 <!--begin::Title-->
                 <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Narayan Seva Sansthan - Volunteer Program</h1>
@@ -50,13 +50,13 @@
                         </div>
                         @endif
                         <!--begin::Form-->
-                        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{{ route('volunteer.login') }}">
+                        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{{ route('admin.login') }}">
                             @csrf
                             <!--begin::Heading-->
                             <div class="text-center mb-11">
                                 <!--begin::Title-->
                                 <img src="{{ asset('assets/media/auth/logo.jpg') }}" alt="Narayan Seva Sansthan - Volunteer Program Logo" class="mb-3" />
-                                <h1 class="text-gray-900 fw-bolder mb-3">Valunteer Sign In</h1>
+                                <h1 class="text-gray-900 fw-bolder mb-3">Admin Login</h1>
                                 <!--end::Title-->
                                 <!--begin::Subtitle-->
                                 <!--end::Subtitle=-->
@@ -118,17 +118,7 @@
                                 </button>
                             </div>
                             <!--end::Submit button-->
-                            <!--begin::Sign up-->
-                            <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
-                                <a href="{{ route('volunteer.register') }}" class="link-primary">Sign up</a>
-                            </div>
-                            <!--end::Sign up-->
 
-                            <!--begin::OTP Login-->
-                            <div class="text-gray-500 text-center fw-semibold fs-6 mt-3">
-                                <a href="{{ route('volunteer.login.otp') }}" class="link-primary">Login with Mobile OTP</a>
-                            </div>
-                            <!--end::OTP Login-->
                         </form>
                         <!--end::Form-->
                     </div>
