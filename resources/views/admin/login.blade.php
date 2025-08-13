@@ -50,7 +50,7 @@
                         </div>
                         @endif
                         <!--begin::Form-->
-                        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{{ route('admin.login') }}">
+                        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{{ route('admin.login.submit') }}">
                             @csrf
                             <!--begin::Heading-->
                             <div class="text-center mb-11">

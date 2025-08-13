@@ -38,15 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'users', // Default user provider
         ],
-        'volunteer' => [
-            'driver' => 'session',
-            'provider' => 'volunteers',
-        ],
+
         'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
+            'driver' => 'session', // Or 'token' if you are using tokens
+            'provider' => 'admins', // Custom admin provider
         ],
     ],
 
@@ -70,17 +67,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-        'volunteers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Volunteer::class,
+            'model' => App\Models\User::class, // Default user model
         ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -119,6 +111,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
     ],
 
     /*

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
     return redirect()->route('volunteer.login');
@@ -45,9 +47,11 @@ Route::prefix('donor')->name('donor.')->middleware('volunteer.auth')->group(func
     Route::get('/trash', [DonorController::class, 'trash'])->name('trash');
 });
 
-// Admin Login Routes
-Route::prefix('admin')->group(function () {
-    Route::get('login', [App\Http\Controllers\AdminController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login.submit');
-    Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+// Admin Module Routes
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Public login route (no authentication)
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    // Dashboard route (protected or not)
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
